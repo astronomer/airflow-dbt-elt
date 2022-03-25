@@ -1,3 +1,5 @@
 airflow-provider-census==1.1.1
 airflow-provider-fivetran==1.0.3
+airflow-provider-hightouch==2.1.1
 apache-airflow-providers-dbt-cloud==1.0.1
+dbt==0.21.1
