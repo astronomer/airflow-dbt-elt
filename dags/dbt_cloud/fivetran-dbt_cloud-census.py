@@ -35,7 +35,8 @@ For reference, the following provider versions were used when intially authoring
 ```
 """
 
-from datetime import datetime, timedelta
+from pendulum import datetime
+from datetime import timedelta
 
 from airflow_provider_census.operators.census import CensusOperator
 from airflow_provider_census.sensors.census import CensusSensor

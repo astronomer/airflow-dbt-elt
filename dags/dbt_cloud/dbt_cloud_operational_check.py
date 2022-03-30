@@ -25,7 +25,7 @@ For reference, the following provider version was used when intially authoring t
 This provider version uses dbt Cloud API v2.
 """
 
-from datetime import datetime
+from pendulum import datetime
 
 from airflow.decorators import dag
 from airflow.operators.dummy import DummyOperator
