@@ -23,7 +23,7 @@ from airflow.utils.trigger_rule import TriggerRule
 
 # We're hardcoding the project directory value here for the purpose of the demo, but in a production
 # environment this would probably come from a config file and/or environment variables!
-DBT_PROJECT_DIR = "/usr/local/airflow/include/dbt"
+DBT_PROJECT_DIR = "/usr/local/airflow/dbt"
 
 DBT_ENV = {
     "DBT_USER": "{{ conn.postgres.login }}",
@@ -62,7 +62,7 @@ with dag:
     # Fill in the previous state artifacts needed to run from this point.
     dbt_build_rerun = BashOperator(
         task_id="dbt_build_rerun",
-        bash_command=f"dbt build --select result:error+ --defer --state <path/to/previous_state_artifacts>",
+        bash_command="dbt build --select result:error+ --defer --state <path/to/previous_state_artifacts>",
         env=DBT_ENV,
         trigger_rule=TriggerRule.ALL_FAILED,
     )
