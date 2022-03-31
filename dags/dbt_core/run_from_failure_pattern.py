@@ -14,7 +14,7 @@ This pipeline assumes that you are using dbt Core with the `BashOperator`.
 from datetime import timedelta
 from pendulum import datetime
 
-from airflow import DAG
+from airflow.decorators import dag
 from airflow.operators.bash import BashOperator
 from airflow_provider_hightouch.operators.hightouch import HightouchTriggerSyncOperator
 from airflow.utils.edgemodifier import Label
@@ -34,17 +34,13 @@ DBT_ENV = {
 }
 
 
-dag = DAG(
-    "dbt_run_from_failure",
+@dag(
     start_date=datetime(2022, 3, 14),
-    default_args={"owner": "astronomer", "email_on_failure": False},
-    description="A sample Airflow DAG that shows how to use the new dbt+= command with trigger rules.",
     schedule_interval=None,
     catchup=False,
     doc_md=__doc__,
 )
-
-with dag:
+def dbt_run_from_failure():
     # This task loads the CSV files from dbt/data into the local Postgres database for the purpose of this demo.
     # In practice, we'd usually expect the data to have already been loaded to the database.
     dbt_seed = BashOperator(
@@ -79,3 +75,5 @@ with dag:
     # Explicitly setting this task as dependent on both upstream tasks.
     dbt_seed >> dbt_run >> Label("Only if dbt run fails") >> dbt_build_rerun >> sync_data_to_salesforce
     dbt_run >> Label("If it succeeds") >> sync_data_to_salesforce
+
+dag = dbt_run_from_failure()
