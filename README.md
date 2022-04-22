@@ -5,7 +5,7 @@ data stores need connections and may require accounts with cloud providers. Furt
 the data store specific sections below.
 
 ## Requirements
-The Astronomer CLI and Docker installed locally are needed to run all DAGs in this repo. The p
+The Astronomer CLI and Docker installed locally are needed to run all DAGs in this repo.
 
 ## Getting Started
 The easiest way to run these example DAGs is to use the Astronomer CLI to get an Airflow instance up and
