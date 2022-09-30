@@ -1,6 +1,6 @@
 # These categories will be applied to all DAGs in the repo.
 categories:
-  - ETL/ETL
+  - ETL/ELT
 # List of DAGs that should be published to the Astronomer Registry.
 dags:
   - path: dags/dbt_cloud/dbt_cloud_operational_check.py
