@@ -44,7 +44,6 @@ from fivetran_provider.operators.fivetran import FivetranOperator
 from fivetran_provider.sensors.fivetran import FivetranSensor
 
 from airflow.decorators import dag
-from airflow.models.baseoperator import chain
 from airflow.operators.empty import EmptyOperator
 from airflow.providers.dbt.cloud.operators.dbt import DbtCloudRunJobOperator
 from airflow.providers.dbt.cloud.sensors.dbt import DbtCloudJobRunSensor
@@ -60,8 +59,8 @@ from airflow.utils.task_group import TaskGroup
     doc_md=__doc__,
 )
 def modern_elt():
-    begin = DummyOperator(task_id="begin")
-    end = DummyOperator(task_id="end")
+    begin = EmptyOperator(task_id="begin")
+    end = EmptyOperator(task_id="end")
 
     with TaskGroup(
         group_id="extract_and_load",

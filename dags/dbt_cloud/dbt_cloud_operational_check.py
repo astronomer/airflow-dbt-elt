@@ -58,7 +58,7 @@ def _check_job_not_running(job_id):
     doc_md=__doc__,
 )
 def check_before_running_dbt_cloud_job():
-    begin, end = [DummyOperator(task_id=id) for id in ["begin", "end"]]
+    begin, end = [EmptyOperator(task_id=id) for id in ["begin", "end"]]
 
     check_job = ShortCircuitOperator(
         task_id="check_job_is_not_running",
