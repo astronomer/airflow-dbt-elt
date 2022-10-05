@@ -45,7 +45,7 @@ from fivetran_provider.sensors.fivetran import FivetranSensor
 
 from airflow.decorators import dag
 from airflow.models.baseoperator import chain
-from airflow.operators.dummy import DummyOperator
+from airflow.operators.empty import EmptyOperator
 from airflow.providers.dbt.cloud.operators.dbt import DbtCloudRunJobOperator
 from airflow.providers.dbt.cloud.sensors.dbt import DbtCloudJobRunSensor
 from airflow.utils.task_group import TaskGroup

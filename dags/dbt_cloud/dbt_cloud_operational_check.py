@@ -28,7 +28,7 @@ This provider version uses dbt Cloud API v2.
 from pendulum import datetime
 
 from airflow.decorators import dag
-from airflow.operators.dummy import DummyOperator
+from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import ShortCircuitOperator
 from airflow.providers.dbt.cloud.hooks.dbt import DbtCloudHook, DbtCloudJobRunStatus
 from airflow.providers.dbt.cloud.operators.dbt import DbtCloudRunJobOperator
