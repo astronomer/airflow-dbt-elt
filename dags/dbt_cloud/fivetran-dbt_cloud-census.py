@@ -31,7 +31,7 @@ For reference, the following provider versions were used when intially authoring
 ```
     airflow-provider-census==1.1.1
     apache-airflow-providers-dbt-cloud==1.0.1
-    airflow-provider-fivetran==1.0.3
+    airflow-provider-fivetran-async==1.0.0a4
 ```
 """
 
@@ -40,8 +40,7 @@ from datetime import timedelta
 
 from airflow_provider_census.operators.census import CensusOperator
 from airflow_provider_census.sensors.census import CensusSensor
-from fivetran_provider.operators.fivetran import FivetranOperator
-from fivetran_provider.sensors.fivetran import FivetranSensor
+from fivetran_provider_async.operators import FivetranOperatorAsync
 
 from airflow.decorators import dag
 from airflow.operators.empty import EmptyOperator
@@ -70,11 +69,10 @@ def modern_elt():
             "connector_id": "{{ var.value.salesforce_connector_id }}",
         },
     ) as extract_and_load:
-        extract_salesforce = FivetranOperator(task_id="extract_salesforce")
-
-        wait_for_extract = FivetranSensor(task_id="wait_for_extract", poke_interval=300)
-
-        extract_salesforce >> wait_for_extract
+        extract_salesforce = FivetranOperatorAsync(
+            task_id="extract_salesforce_with_async_poll",
+            poll_frequency=300,
+        )
 
     with TaskGroup(
         group_id="transform", prefix_group_id=False, default_args={"dbt_cloud_conn_id": "dbt_cloud"}
