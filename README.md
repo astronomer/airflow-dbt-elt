@@ -60,7 +60,7 @@ To create a connection to Census, navigate to `Admin -> Connections` in the Airf
 Additional Airflow provider packages are required for this DAG:
 ```
     airflow-provider-census==1.1.1
-    airflow-provider-fivetran==1.0.3
+    airflow-provider-fivetran-async==1.0.0a4
 ```
 
 ## dbt Core
